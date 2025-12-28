@@ -12,7 +12,6 @@ const ChartHistogramIcon = ({
   const [scope, animate] = useAnimate();
 
   const startAnimate = async () => {
-    // Bars grow from bottom sequentially
     animate(
       ".histogram-bar-1",
       {
@@ -60,7 +59,6 @@ const ChartHistogramIcon = ({
       },
     );
 
-    // Curve draws in
     animate(
       ".histogram-curve",
       {

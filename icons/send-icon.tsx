@@ -45,28 +45,26 @@ const SendIcon = ({
   };
 
   return (
-    <motion.div
+    <motion.svg
+      xmlns="http://www.w3.org/2000/svg"
       ref={scope}
       onHoverStart={hoverAnimation}
-      className={`inline-flex cursor-pointer ${className}`}
+      className={`cursor-pointer ${className}`}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={color}
-        strokeWidth={strokeWidth}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="send-icon"
-      >
+      <motion.g className="send-icon">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <path d="M10 14l11 -11" />
         <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" />
-      </svg>
-    </motion.div>
+      </motion.g>
+    </motion.svg>
   );
 };
 

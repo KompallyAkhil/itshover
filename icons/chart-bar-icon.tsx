@@ -12,7 +12,6 @@ const ChartBarIcon = ({
   const [scope, animate] = useAnimate();
 
   const startAnimate = async () => {
-    // Bars grow from bottom to top sequentially
     animate(
       ".bar-1",
       {
@@ -48,7 +47,6 @@ const ChartBarIcon = ({
       },
     );
 
-    // Base line pulses
     animate(
       ".base-line",
       {
@@ -125,28 +123,24 @@ const ChartBarIcon = ({
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
 
-      {/* Left bar (shortest) */}
       <motion.path
         d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"
         className="bar-1"
         style={{ transformOrigin: "6px 20px" }}
       />
 
-      {/* Right bar (tallest) */}
       <motion.path
         d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"
         className="bar-3"
         style={{ transformOrigin: "18px 20px" }}
       />
 
-      {/* Middle bar */}
       <motion.path
         d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"
         className="bar-2"
         style={{ transformOrigin: "12px 20px" }}
       />
 
-      {/* Base line */}
       <motion.path
         d="M4 20h14"
         className="base-line"

@@ -5,6 +5,13 @@ import PrimaryButton from "@/components/ui/primary-button";
 import SecondaryButton from "@/components/ui/secondary-button";
 import GithubBadge from "./github-badge";
 import { motion } from "motion/react";
+import GithubIcon from "@/icons/github-icon";
+import Stack3Icon from "@/icons/stack-3-icon";
+import FloatingIcon from "./ui/floating-icon";
+import TerminalIcon from "@/icons/terminal-icon";
+import CurrencyRupeeIcon from "@/icons/currency-rupee-icon";
+import LikeIcon from "@/icons/like-icon";
+import SendIcon from "@/icons/send-icon";
 const Hero = () => {
   const textAnimation = {
     initial: {
@@ -21,6 +28,34 @@ const Hero = () => {
   };
   return (
     <section className="flex flex-col items-center justify-center py-20 text-center md:py-32">
+      <div>
+        {/* Floating demo icons */}
+        <div className="pointer-events-none hidden md:block lg:pointer-events-auto">
+          {/* Top left cluster */}
+          <FloatingIcon className="text-accent-foreground/40 top-16 left-10 rotate-[-20deg]">
+            <GithubIcon className="h-28 w-28 md:h-32 md:w-32 lg:h-40 lg:w-40 xl:h-44 xl:w-44" />
+          </FloatingIcon>
+
+          <FloatingIcon className="text-accent-foreground/30 top-60 left-36 rotate-15">
+            <LikeIcon className="h-32 w-32 md:h-40 md:w-40 lg:h-48 lg:w-48 xl:h-52 xl:w-52" />
+          </FloatingIcon>
+          <FloatingIcon className="text-accent-foreground/40 top-20 right-20 rotate-25">
+            <Stack3Icon className="h-24 w-24 md:h-28 md:w-28 lg:h-32 lg:w-32 xl:h-36 xl:w-36" />
+          </FloatingIcon>
+
+          <FloatingIcon className="text-accent-foreground/30 right-36 bottom-60 rotate-[-15deg]">
+            <SendIcon className="h-28 w-28 md:h-32 md:w-32 lg:h-40 lg:w-40 xl:h-44 xl:w-44" />
+          </FloatingIcon>
+
+          <FloatingIcon className="text-accent-foreground/25 bottom-28 left-24 rotate-10">
+            <CurrencyRupeeIcon className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16 xl:h-20 xl:w-20" />
+          </FloatingIcon>
+
+          <FloatingIcon className="text-accent-foreground/25 right-24 bottom-24 rotate-[-10deg]">
+            <TerminalIcon className="h-14 w-14 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24" />
+          </FloatingIcon>
+        </div>
+      </div>
       <div className="mb-6">
         <GithubBadge />
       </div>
@@ -58,7 +93,7 @@ const Hero = () => {
             <ArrowRight className="ml-2 h-4 w-4" />
           </PrimaryButton>
         </Link>
-        <Link href="" target="_blank">
+        <Link href="/sponsor">
           <SecondaryButton className="cursor-pointer">Sponsor</SecondaryButton>
         </Link>
       </motion.div>
