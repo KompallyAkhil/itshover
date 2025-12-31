@@ -40,7 +40,7 @@ const SponsorCard = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
-      className="bg-card hover:border-primary/50 flex flex-col justify-between rounded-xl border p-6 shadow-sm transition-colors"
+      className="bg-card hover:border-primary/50 flex min-w-0 flex-col justify-between overflow-hidden rounded-xl border p-6 shadow-sm transition-colors"
     >
       <div className="mb-4">
         <div className="mb-4 inline-flex rounded-lg bg-zinc-100 p-3 dark:bg-zinc-800">
@@ -65,15 +65,19 @@ const CopyField = ({ label, value }: { label: string; value: string }) => {
 
   return (
     <div className="space-y-1.5">
-      <span className="text-muted-foreground text-xs font-medium">{label}</span>
-      <div className="bg-muted/50 flex items-center justify-between rounded-md border px-3 py-2">
-        <code className="truncate font-mono text-sm">{value}</code>
+      <span className="text-muted-foreground block text-xs font-medium wrap-break-word">
+        {label}
+      </span>
+      <div className="bg-muted/50 flex items-center gap-2 rounded-md border px-3 py-2">
+        <code className="min-w-0 flex-1 truncate font-mono text-xs sm:text-sm">
+          {value}
+        </code>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
               <button
                 onClick={handleCopy}
-                className="text-muted-foreground hover:text-foreground ml-2 flex justify-center text-center transition-colors"
+                className="text-muted-foreground hover:text-foreground flex shrink-0 justify-center text-center transition-colors"
               >
                 {copied ? (
                   <CheckedIcon className="h-4 w-4 text-green-500" />
@@ -113,14 +117,19 @@ export default function SponsorContent() {
               inspire future updates. Alternatively, your feedback is incredibly
               valuable!
             </p>
-            <div className="flex justify-center gap-4">
-              <Button asChild size="lg" className="gap-2">
+            <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
+              <Button asChild size="lg" className="w-full gap-2 sm:w-auto">
                 <Link href={LINKS.CREATOR} target="_blank">
                   <MessageCircleIcon className="h-4 w-4" />
                   Leave Feedback
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="gap-2">
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="w-full gap-2 sm:w-auto"
+              >
                 <Link href={LINKS.GITHUB} target="_blank">
                   <GithubIcon className="h-4 w-4" />
                   Star on GitHub
@@ -130,7 +139,7 @@ export default function SponsorContent() {
           </motion.div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid min-w-0 gap-6 md:grid-cols-2 lg:grid-cols-3">
           <SponsorCard
             title="Buy Me a Coffee"
             description="Support with a small donation."
