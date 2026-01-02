@@ -1,3 +1,4 @@
+"use client";
 import Container from "@/components/container";
 import Hero from "@/components/hero-section";
 import Features from "@/components/features";

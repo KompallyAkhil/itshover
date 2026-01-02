@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
-import { AnimatedIconProps } from "@/icons/types";
+import Link from "next/link";
+import { AnimatedIconProps, AnimatedIconHandle } from "@/icons/types";
 import {
   Tooltip,
   TooltipContent,
@@ -9,26 +12,28 @@ import { getIconsContent } from "@/actions/get-icons-content";
 import SimpleCheckedIcon from "@/icons/simple-checked-icon";
 import CopyIcon from "@/icons/copy-icon";
 import TerminalIcon from "@/icons/terminal-icon";
-import Link from "next/link";
 import { LINKS } from "@/constants";
+import { Play } from "lucide-react";
 
 const IconCard = ({
   name,
   icon: Icon,
 }: {
   name: string;
-  icon: React.FC<AnimatedIconProps>;
+  icon: React.ForwardRefExoticComponent<
+    AnimatedIconProps & React.RefAttributes<AnimatedIconHandle>
+  >;
 }) => {
+  const iconRef = React.useRef<AnimatedIconHandle>(null);
+
   const [isCopied, setIsCopied] = React.useState(false);
   const [isCommandCopied, setIsCommandCopied] = React.useState(false);
+
   const copyFileToClipboard = async () => {
     const content = await getIconsContent(name);
-    console.log(content);
     window.navigator.clipboard.writeText(content);
     setIsCopied(true);
-    setTimeout(() => {
-      setIsCopied(false);
-    }, 1000);
+    setTimeout(() => setIsCopied(false), 1000);
   };
 
   const copyCommandToClipboard = () => {
@@ -36,31 +41,54 @@ const IconCard = ({
       `npx shadcn@latest add ${LINKS.SITE_URL}/r/${name}.json`,
     );
     setIsCommandCopied(true);
+    setTimeout(() => setIsCommandCopied(false), 1000);
+  };
+
+  /**
+   * Mobile play button logic
+   */
+  const playAnimation = () => {
+    iconRef.current?.startAnimation();
+
+    // optional auto-stop so it doesn't loop forever
     setTimeout(() => {
-      setIsCommandCopied(false);
-    }, 1000);
+      iconRef.current?.stopAnimation();
+    }, 1500);
   };
 
   return (
-    <div className="bg-background flex min-w-[140px] flex-1 flex-col items-center justify-center gap-4 rounded-lg border p-4 shadow-sm transition-all hover:shadow-md sm:w-48 sm:flex-none">
+    <div className="bg-background relative flex min-w-[140px] flex-1 flex-col items-center justify-center gap-4 rounded-lg border p-4 shadow-sm transition-all hover:shadow-md sm:w-48 sm:flex-none">
+      <div className="absolute top-2 right-2 hidden sm:hidden [@media(hover:none)]:block">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            playAnimation();
+          }}
+          className="text-muted-foreground hover:bg-accent hover:text-foreground rounded-md p-2 transition-colors"
+        >
+          <Play size={16} />
+        </button>
+      </div>
+      {/* Icon Preview */}
       <Link
         href={`/icons/${name}`}
-        className="flex cursor-pointer items-center justify-center p-2"
+        className="flex cursor-pointer flex-col items-center justify-center gap-2 p-2"
       >
         <Tooltip>
           <TooltipTrigger>
-            <Icon size={56} />
+            <Icon ref={iconRef} size={56} />
           </TooltipTrigger>
           <TooltipContent>{name}</TooltipContent>
         </Tooltip>
       </Link>
 
+      {/* Actions */}
       <div className="flex items-center gap-2">
         <Tooltip>
           <TooltipTrigger asChild>
             <button
               className="text-muted-foreground hover:text-foreground transition-colors"
-              onClick={() => copyFileToClipboard()}
+              onClick={copyFileToClipboard}
             >
               {isCopied ? (
                 <SimpleCheckedIcon size={16} className="text-green-500" />
@@ -80,7 +108,7 @@ const IconCard = ({
         <Tooltip>
           <TooltipTrigger asChild>
             <button
-              onClick={() => copyCommandToClipboard()}
+              onClick={copyCommandToClipboard}
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               {isCommandCopied ? (

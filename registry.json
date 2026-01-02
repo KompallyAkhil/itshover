@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "itshover",
-  "homepage": "https://intent-ui.vercel.app",
+  "homepage": "https://itshover.com",
   "items": [
     {
       "name": "align-vertical-space-around-icon",
@@ -913,23 +913,6 @@
       "files": [
         {
           "path": "icons/trash-icon.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "icons/types.ts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "tree-icon",
-      "type": "registry:ui",
-      "registryDependencies": [],
-      "dependencies": ["motion"],
-      "devDependencies": [],
-      "files": [
-        {
-          "path": "icons/tree-icon.tsx",
           "type": "registry:ui"
         },
         {

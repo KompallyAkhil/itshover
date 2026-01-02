@@ -1,46 +1,65 @@
+import { forwardRef, useImperativeHandle } from "react";
 import { AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
-const MessageCircleIcon = ({
-  size = 24,
-  color = "currentColor",
-  strokeWidth = 2,
-  className = "",
-}: AnimatedIconProps) => {
-  const [scope, animate] = useAnimate();
+export type MessageCircleIconHandle = {
+  startAnimation: () => void;
+  stopAnimation: () => void;
+};
 
-  const hoverAnimation = async () => {
-    animate(".message-path", { pathLength: 0, opacity: 0 }, { duration: 0 });
+const MessageCircleIcon = forwardRef<
+  MessageCircleIconHandle,
+  AnimatedIconProps
+>(
+  (
+    { size = 24, color = "currentColor", strokeWidth = 2, className = "" },
+    ref,
+  ) => {
+    const [scope, animate] = useAnimate();
 
-    await animate(
-      ".message-path",
-      { pathLength: [0, 1], opacity: [0, 1] },
-      { duration: 0.6, ease: "easeInOut" },
-    );
+    const start = async () => {
+      // reset first
+      animate(".message-path", { pathLength: 0, opacity: 0 }, { duration: 0 });
 
-    animate(
-      ".message-path",
-      { scale: [1, 1.05, 1] },
-      { duration: 0.3, ease: "easeOut" },
-    );
-  };
+      await animate(
+        ".message-path",
+        { pathLength: [0, 1], opacity: [0, 1] },
+        { duration: 0.6, ease: "easeInOut" },
+      );
 
-  const hoverEndAnimation = () => {
-    animate(
-      ".message-path",
-      { pathLength: 1, opacity: 1, scale: 1 },
-      { duration: 0.2 },
-    );
-  };
+      animate(
+        ".message-path",
+        { scale: [1, 1.05, 1] },
+        { duration: 0.3, ease: "easeOut" },
+      );
+    };
 
-  return (
-    <motion.div
-      ref={scope}
-      onHoverStart={hoverAnimation}
-      onHoverEnd={hoverEndAnimation}
-      className="inline-flex"
-    >
-      <svg
+    const stop = () => {
+      animate(
+        ".message-path",
+        { pathLength: 1, opacity: 1, scale: 1 },
+        { duration: 0.2 },
+      );
+    };
+
+    useImperativeHandle(ref, () => ({
+      startAnimation: start,
+      stopAnimation: stop,
+    }));
+
+    const handleHoverStart = () => {
+      start();
+    };
+
+    const handleHoverEnd = () => {
+      stop();
+    };
+
+    return (
+      <motion.svg
+        ref={scope}
+        onHoverStart={handleHoverStart}
+        onHoverEnd={handleHoverEnd}
         xmlns="http://www.w3.org/2000/svg"
         width={size}
         height={size}
@@ -50,7 +69,8 @@ const MessageCircleIcon = ({
         strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={className}
+        className={`cursor-pointer ${className}`}
+        style={{ overflow: "visible" }}
       >
         <motion.path
           className="message-path"
@@ -58,9 +78,11 @@ const MessageCircleIcon = ({
           initial={{ pathLength: 1, opacity: 1 }}
           style={{ transformOrigin: "center" }}
         />
-      </svg>
-    </motion.div>
-  );
-};
+      </motion.svg>
+    );
+  },
+);
+
+MessageCircleIcon.displayName = "MessageCircleIcon";
 
 export default MessageCircleIcon;

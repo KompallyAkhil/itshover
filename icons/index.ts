@@ -1,4 +1,4 @@
-import { AnimatedIconProps } from "./types";
+import { AnimatedIconProps, AnimatedIconHandle } from "./types";
 import AccessibilityIcon from "./accessibility-icon";
 import AlarmClockPlusIcon from "./alarm-clock-plus-icon";
 import AlignCenterIcon from "./align-center-icon";
@@ -180,7 +180,9 @@ import YoutubeIcon from "./youtube-icon";
 
 export interface IconType {
   name: string;
-  icon: React.FC<AnimatedIconProps>;
+  icon: React.ForwardRefExoticComponent<
+    AnimatedIconProps & React.RefAttributes<AnimatedIconHandle>
+  >;
   keywords: string[];
   customProps?: {
     name: string;

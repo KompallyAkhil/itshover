@@ -1,16 +1,19 @@
-"use client";
-
+import { forwardRef, useImperativeHandle, useCallback } from "react";
 import { AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
-const LayoutBottombarCollapseIcon = ({
-  size = 24,
-  color = "currentColor",
-  className = "",
-}: AnimatedIconProps) => {
+export type LayoutBottombarCollapseIconHandle = {
+  startAnimation: () => void;
+  stopAnimation: () => void;
+};
+
+const LayoutBottombarCollapseIcon = forwardRef<
+  LayoutBottombarCollapseIconHandle,
+  AnimatedIconProps
+>(({ size = 24, color = "currentColor", className = "" }, ref) => {
   const [scope, animate] = useAnimate();
 
-  const startAnimate = async () => {
+  const start = useCallback(async () => {
     animate(
       ".chevron",
       {
@@ -32,23 +35,13 @@ const LayoutBottombarCollapseIcon = ({
         ease: "easeInOut",
       },
     );
-  };
+  }, [animate]);
 
-  const endAnimate = async () => {
+  const stop = useCallback(async () => {
     animate(
-      ".chevron",
+      ".chevron, .bottombar",
       {
         y: 0,
-      },
-      {
-        duration: 0.25,
-        ease: "easeInOut",
-      },
-    );
-
-    animate(
-      ".bottombar",
-      {
         opacity: 1,
       },
       {
@@ -56,7 +49,12 @@ const LayoutBottombarCollapseIcon = ({
         ease: "easeInOut",
       },
     );
-  };
+  }, [animate]);
+
+  useImperativeHandle(ref, () => ({
+    startAnimation: start,
+    stopAnimation: stop,
+  }));
 
   return (
     <motion.svg
@@ -67,8 +65,8 @@ const LayoutBottombarCollapseIcon = ({
       viewBox="0 0 24 24"
       fill={color}
       className={`cursor-pointer ${className}`}
-      onHoverStart={startAnimate}
-      onHoverEnd={endAnimate}
+      onHoverStart={start}
+      onHoverEnd={stop}
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
 
@@ -79,6 +77,7 @@ const LayoutBottombarCollapseIcon = ({
       </motion.g>
     </motion.svg>
   );
-};
+});
 
+LayoutBottombarCollapseIcon.displayName = "LayoutBottombarCollapseIcon";
 export default LayoutBottombarCollapseIcon;

@@ -8,3 +8,8 @@ export interface AnimatedIconProps {
   /** Additional CSS classes */
   className?: string;
 }
+
+export interface AnimatedIconHandle {
+  startAnimation: () => void;
+  stopAnimation: () => void;
+}

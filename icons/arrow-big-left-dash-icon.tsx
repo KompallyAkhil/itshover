@@ -1,28 +1,48 @@
+import { forwardRef, useImperativeHandle } from "react";
 import { AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
-const ArrowBigLeftDashIcon = ({
-  size = 40,
-  className = "",
-  strokeWidth = 2,
-}: AnimatedIconProps) => {
+export type ArrowBigLeftDashIconHandle = {
+  startAnimation: () => void;
+  stopAnimation: () => void;
+};
+
+const ArrowBigLeftDashIcon = forwardRef<
+  ArrowBigLeftDashIconHandle,
+  AnimatedIconProps
+>(({ size = 40, className = "", strokeWidth = 2 }, ref) => {
   const [scope, animate] = useAnimate();
 
-  const hoverAnimation = async () => {
+  const start = async () => {
     animate(".arrow", { x: [0, -4] }, { duration: 0.5 });
     animate(".dash", { opacity: [1, 0.5] }, { duration: 0.5 });
   };
 
-  const resetAnimation = async () => {
+  const stop = async () => {
     animate(".arrow", { x: 0 }, { duration: 0.3 });
     animate(".dash", { opacity: 1 }, { duration: 0.3 });
+  };
+
+  useImperativeHandle(ref, () => {
+    return {
+      startAnimation: start,
+      stopAnimation: stop,
+    };
+  });
+
+  const handleHoverStart = () => {
+    start();
+  };
+
+  const handleHoverEnd = () => {
+    stop();
   };
 
   return (
     <motion.svg
       ref={scope}
-      onHoverStart={hoverAnimation}
-      onHoverEnd={resetAnimation}
+      onHoverStart={handleHoverStart}
+      onHoverEnd={handleHoverEnd}
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
@@ -41,6 +61,8 @@ const ArrowBigLeftDashIcon = ({
       <motion.path className="dash" d="M20 9v6" />
     </motion.svg>
   );
-};
+});
+
+ArrowBigLeftDashIcon.displayName = "ArrowBigLeftDashIcon";
 
 export default ArrowBigLeftDashIcon;

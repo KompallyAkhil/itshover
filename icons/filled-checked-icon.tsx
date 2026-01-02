@@ -1,13 +1,19 @@
+import { forwardRef, useImperativeHandle, useCallback } from "react";
 import { AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
-import React from "react";
 
-const FilledCheckedIcon = ({
-  size = 24,
-  className = "",
-}: AnimatedIconProps) => {
+export type FilledCheckedIconHandle = {
+  startAnimation: () => void;
+  stopAnimation: () => void;
+};
+
+const FilledCheckedIcon = forwardRef<
+  FilledCheckedIconHandle,
+  AnimatedIconProps
+>(({ size = 24, className = "" }, ref) => {
   const [scope, animate] = useAnimate();
-  const hoverAnimation = async () => {
+
+  const start = useCallback(async () => {
     await animate(
       "svg",
       {
@@ -70,14 +76,23 @@ const FilledCheckedIcon = ({
         ease: "easeInOut",
       },
     );
-  };
+  }, [animate]);
+
+  const stop = useCallback(() => {
+    animate(
+      "svg, .filled-circle, .check-icon",
+      { scale: 1, opacity: 1, pathLength: 1 },
+      { duration: 0.2, ease: "easeInOut" },
+    );
+  }, [animate]);
+
+  useImperativeHandle(ref, () => ({
+    startAnimation: start,
+    stopAnimation: stop,
+  }));
+
   return (
-    <motion.div
-      ref={scope}
-      onHoverStart={() => {
-        hoverAnimation();
-      }}
-    >
+    <motion.div ref={scope} onHoverStart={start} onHoverEnd={stop}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}
@@ -100,6 +115,7 @@ const FilledCheckedIcon = ({
       </svg>
     </motion.div>
   );
-};
+});
 
+FilledCheckedIcon.displayName = "FilledCheckedIcon";
 export default FilledCheckedIcon;

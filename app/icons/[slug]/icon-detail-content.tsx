@@ -10,14 +10,24 @@ import { CodeBlock } from "@/components/ui/code-block";
 import ArrowNarrowLeftIcon from "@/icons/arrow-narrow-left-icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LINKS } from "@/constants";
+import { AnimatedIconProps } from "@/icons/types";
+import { Play } from "lucide-react";
+
+type AnimatedIconHandle = {
+  startAnimation: () => void;
+  stopAnimation: () => void;
+};
 
 export default function IconDetailContent({ slug }: { slug: string }) {
+  const iconRef = React.useRef<AnimatedIconHandle>(null);
   const [iconCode, setIconCode] = React.useState<string>("");
   const [codeCopied, setCodeCopied] = React.useState(false);
   const [depCopied, setDepCopied] = React.useState(false);
 
   const iconData = ICON_LIST.find((icon) => icon.name === slug);
-  const IconComponent = iconData?.icon;
+  const IconComponent = iconData?.icon as React.ForwardRefExoticComponent<
+    AnimatedIconProps & React.RefAttributes<AnimatedIconHandle>
+  >;
 
   React.useEffect(() => {
     if (slug) {
@@ -35,6 +45,13 @@ export default function IconDetailContent({ slug }: { slug: string }) {
     await navigator.clipboard.writeText("npm install motion");
     setDepCopied(true);
     setTimeout(() => setDepCopied(false), 2000);
+  };
+
+  const playAnimation = () => {
+    iconRef.current?.startAnimation();
+    setTimeout(() => {
+      iconRef.current?.stopAnimation();
+    }, 1500);
   };
 
   if (!iconData || !IconComponent) {
@@ -74,12 +91,18 @@ export default function IconDetailContent({ slug }: { slug: string }) {
             {/* Left Section - Icon Preview */}
             <div className="flex flex-col items-center md:w-[300px] md:shrink-0">
               <motion.div
-                className="bg-muted/30 flex aspect-square w-full max-w-xs items-center justify-center rounded-2xl border p-12"
+                className="bg-muted/30 relative flex aspect-square w-full max-w-xs items-center justify-center rounded-2xl border p-12"
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.1 }}
               >
-                <IconComponent size={120} />
+                <div
+                  className="text-muted-foreground hover:bg-accent hover:text-foreground absolute top-4 right-4 hidden cursor-pointer rounded-md p-2 transition-colors sm:hidden [@media(hover:none)]:block"
+                  onClick={playAnimation}
+                >
+                  <Play size={24} />
+                </div>
+                <IconComponent size={120} ref={iconRef} />
               </motion.div>
 
               <motion.h1
