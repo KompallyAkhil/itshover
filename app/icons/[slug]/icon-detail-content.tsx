@@ -11,7 +11,7 @@ import ArrowNarrowLeftIcon from "@/icons/arrow-narrow-left-icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LINKS } from "@/constants";
 import { AnimatedIconProps } from "@/icons/types";
-import { Play } from "lucide-react";
+import PlayerIcon from "@/icons/player-icon";
 
 type AnimatedIconHandle = {
   startAnimation: () => void;
@@ -100,7 +100,7 @@ export default function IconDetailContent({ slug }: { slug: string }) {
                   className="text-muted-foreground hover:bg-accent hover:text-foreground absolute top-4 right-4 hidden cursor-pointer rounded-md p-2 transition-colors sm:hidden [@media(hover:none)]:block"
                   onClick={playAnimation}
                 >
-                  <Play size={24} />
+                  <PlayerIcon size={24} />
                 </div>
                 <IconComponent size={120} ref={iconRef} />
               </motion.div>

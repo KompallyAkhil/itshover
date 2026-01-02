@@ -13,7 +13,7 @@ import SimpleCheckedIcon from "@/icons/simple-checked-icon";
 import CopyIcon from "@/icons/copy-icon";
 import TerminalIcon from "@/icons/terminal-icon";
 import { LINKS } from "@/constants";
-import { Play } from "lucide-react";
+import PlayerIcon from "@/icons/player-icon";
 
 const IconCard = ({
   name,
@@ -44,9 +44,6 @@ const IconCard = ({
     setTimeout(() => setIsCommandCopied(false), 1000);
   };
 
-  /**
-   * Mobile play button logic
-   */
   const playAnimation = () => {
     iconRef.current?.startAnimation();
 
@@ -66,7 +63,7 @@ const IconCard = ({
           }}
           className="text-muted-foreground hover:bg-accent hover:text-foreground rounded-md p-2 transition-colors"
         >
-          <Play size={16} />
+          <PlayerIcon size={16} />
         </button>
       </div>
       {/* Icon Preview */}
