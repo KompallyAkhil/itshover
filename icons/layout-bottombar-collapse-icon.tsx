@@ -1,16 +1,8 @@
 import { forwardRef, useImperativeHandle, useCallback } from "react";
-import { AnimatedIconProps } from "./types";
+import { AnimatedIconHandle, AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
-export type LayoutBottombarCollapseIconHandle = {
-  startAnimation: () => void;
-  stopAnimation: () => void;
-};
-
-const LayoutBottombarCollapseIcon = forwardRef<
-  LayoutBottombarCollapseIconHandle,
-  AnimatedIconProps
->(({ size = 24, color = "currentColor", className = "" }, ref) => {
+const LayoutBottombarCollapseIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(({ size = 24, color = "currentColor", className = "" }, ref) => {
   const [scope, animate] = useAnimate();
 
   const start = useCallback(async () => {

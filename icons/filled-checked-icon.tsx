@@ -1,16 +1,8 @@
 import { forwardRef, useImperativeHandle, useCallback } from "react";
-import { AnimatedIconProps } from "./types";
+import { AnimatedIconHandle, AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
-export type FilledCheckedIconHandle = {
-  startAnimation: () => void;
-  stopAnimation: () => void;
-};
-
-const FilledCheckedIcon = forwardRef<
-  FilledCheckedIconHandle,
-  AnimatedIconProps
->(({ size = 24, className = "" }, ref) => {
+const FilledCheckedIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(({ size = 24, className = "" }, ref) => {
   const [scope, animate] = useAnimate();
 
   const start = useCallback(async () => {

@@ -1,17 +1,9 @@
 "use client";
 import { forwardRef, useImperativeHandle } from "react";
-import { AnimatedIconProps } from "./types";
+import { AnimatedIconHandle, AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
-export type BluetoothConnectedIconHandle = {
-  startAnimation: () => void;
-  stopAnimation: () => void;
-};
-
-const BluetoothConnectedIcon = forwardRef<
-  BluetoothConnectedIconHandle,
-  AnimatedIconProps
->(
+const BluetoothConnectedIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   (
     { size = 24, color = "currentColor", strokeWidth = 2, className = "" },
     ref,
