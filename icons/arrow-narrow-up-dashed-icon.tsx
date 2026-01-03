@@ -2,7 +2,10 @@ import { forwardRef, useImperativeHandle } from "react";
 import { AnimatedIconHandle, AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
-const ArrowNarrowUpDashedIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const ArrowNarrowUpDashedIcon = forwardRef<
+  AnimatedIconHandle,
+  AnimatedIconProps
+>(
   (
     { size = 24, color = "currentColor", strokeWidth = 2, className = "" },
     ref,

@@ -2,7 +2,10 @@ import { forwardRef, useImperativeHandle, useCallback } from "react";
 import { AnimatedIconHandle, AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
-const LayoutSidebarRightIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const LayoutSidebarRightIcon = forwardRef<
+  AnimatedIconHandle,
+  AnimatedIconProps
+>(
   (
     { size = 24, color = "currentColor", strokeWidth = 2, className = "" },
     ref,

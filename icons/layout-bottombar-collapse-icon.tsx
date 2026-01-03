@@ -2,7 +2,10 @@ import { forwardRef, useImperativeHandle, useCallback } from "react";
 import { AnimatedIconHandle, AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
-const LayoutBottombarCollapseIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(({ size = 24, color = "currentColor", className = "" }, ref) => {
+const LayoutBottombarCollapseIcon = forwardRef<
+  AnimatedIconHandle,
+  AnimatedIconProps
+>(({ size = 24, color = "currentColor", className = "" }, ref) => {
   const [scope, animate] = useAnimate();
 
   const start = useCallback(async () => {

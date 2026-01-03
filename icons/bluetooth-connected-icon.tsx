@@ -3,7 +3,10 @@ import { forwardRef, useImperativeHandle } from "react";
 import { AnimatedIconHandle, AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
-const BluetoothConnectedIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const BluetoothConnectedIcon = forwardRef<
+  AnimatedIconHandle,
+  AnimatedIconProps
+>(
   (
     { size = 24, color = "currentColor", strokeWidth = 2, className = "" },
     ref,

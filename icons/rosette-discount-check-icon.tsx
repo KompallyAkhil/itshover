@@ -2,7 +2,10 @@ import { forwardRef, useImperativeHandle, useCallback } from "react";
 import { AnimatedIconHandle, AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
-const RosetteDiscountCheckIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
+const RosetteDiscountCheckIcon = forwardRef<
+  AnimatedIconHandle,
+  AnimatedIconProps
+>(
   (
     { size = 24, color = "currentColor", strokeWidth = 2, className = "" },
     ref,
