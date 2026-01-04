@@ -47,6 +47,7 @@ export const CommandMenu = () => {
         setIsOpen(!isOpen);
       } else if (e.key === "Escape") {
         e.preventDefault();
+        e.stopPropagation();
         setIsOpen(false);
       }
     };
