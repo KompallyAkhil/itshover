@@ -1,7 +1,14 @@
 import React from "react";
+import { cn } from "@/lib/utils";
 
-const Container = ({ children }: { children: React.ReactNode }) => {
-  return <div className="mx-auto max-w-7xl">{children}</div>;
+const Container = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return <div className={cn("mx-auto max-w-7xl", className)}>{children}</div>;
 };
 
 export default Container;

@@ -59,6 +59,12 @@ const Navbar = () => {
           >
             example
           </Link>
+          <Link
+            className="hover:text-foreground/80 text-muted-foreground transition-colors"
+            href="/request"
+          >
+            request
+          </Link>
         </nav>
 
         <div className="hidden flex-1 items-center justify-end gap-2 sm:gap-2 md:flex md:justify-end">
@@ -114,7 +120,7 @@ const Navbar = () => {
             )}
           </button>
         </div>
-      </div>
+      </div >
 
       {isMobileMenuOpen && (
         <div className="bg-background absolute top-16 left-0 z-50 w-full border-b p-4 shadow-lg md:hidden">
@@ -139,6 +145,13 @@ const Navbar = () => {
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Example
+            </Link>
+            <Link
+              className="hover:text-foreground/80 text-muted-foreground text-sm font-medium transition-colors"
+              href="/request"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Request
             </Link>
 
             <button
@@ -178,7 +191,7 @@ const Navbar = () => {
           </nav>
         </div>
       )}
-    </nav>
+    </nav >
   );
 };
 
