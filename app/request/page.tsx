@@ -1,7 +1,6 @@
 "use client";
 
 import Container from "@/components/container";
-import PrimaryButton from "@/components/ui/primary-button";
 import { LINKS } from "@/constants";
 import Link from "next/link";
 import GithubIcon from "@/icons/github-icon";
@@ -13,7 +12,7 @@ export default function RequestPage() {
 
     return (
         <Container className="flex h-[calc(100vh-16rem)] flex-col items-center justify-center text-center px-4">
-            <div className="max-w-xl space-y-6">
+            <div className="max-w-xl space-y-6 flex flex-col items-center">
                 <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">
                     Request an Icon
                 </h1>
@@ -22,19 +21,18 @@ export default function RequestPage() {
                     Let us know what you need, and we'll do our best to add it to the collection.
                 </p>
 
-                <div className="flex justify-center pt-4">
+                <div className="pt-8">
                     <Link
-                        href={LINKS.REQUEST_ICON}
+                        href={LINKS.GITHUB}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="cursor-pointer"
                         onMouseEnter={() => iconRef.current?.startAnimation()}
                         onMouseLeave={() => iconRef.current?.stopAnimation()}
                     >
-                        <PrimaryButton className="flex items-center gap-2 pointer-events-none">
-                            <GithubIcon ref={iconRef} className="h-5 w-5" />
-                            Request on GitHub
-                        </PrimaryButton>
+                        <div className="bg-muted/30 hover:bg-muted/50 relative flex aspect-square w-40 items-center justify-center rounded-2xl border p-8 transition-colors">
+                            <GithubIcon ref={iconRef} size={80} />
+                        </div>
                     </Link>
                 </div>
             </div>

@@ -120,7 +120,7 @@ const Navbar = () => {
             )}
           </button>
         </div>
-      </div >
+      </div>
 
       {isMobileMenuOpen && (
         <div className="bg-background absolute top-16 left-0 z-50 w-full border-b p-4 shadow-lg md:hidden">
