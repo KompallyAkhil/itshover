@@ -7,8 +7,8 @@ const ArrowBigDownDashIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
     const [scope, animate] = useAnimate();
 
     const start = async () => {
-      animate(".arrow", { y: [0, 4, 0] }, { duration: 0.5 });
-      animate(".dash", { opacity: [1, 0.5, 1] }, { duration: 0.5 });
+      animate(".arrow", { y: 4 }, { duration: 0.5 });
+      animate(".dash", { opacity: 0.5 }, { duration: 0.5 });
     };
 
     const stop = async () => {

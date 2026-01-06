@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import CopyIcon from "@/icons/copy-icon";
 import SimpleCheckedIcon from "@/icons/simple-checked-icon";
-import { getIconsContent } from "@/actions/get-icons-content";
+
 import { CodeBlock } from "@/components/ui/code-block";
 import ArrowNarrowLeftIcon from "@/icons/arrow-narrow-left-icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -18,9 +18,15 @@ type AnimatedIconHandle = {
   stopAnimation: () => void;
 };
 
-export default function IconDetailContent({ slug }: { slug: string }) {
+export default function IconDetailContent({
+  slug,
+  code,
+}: {
+  slug: string;
+  code: string;
+}) {
   const iconRef = React.useRef<AnimatedIconHandle>(null);
-  const [iconCode, setIconCode] = React.useState<string>("");
+  const [iconCode, setIconCode] = React.useState<string>(code);
   const [codeCopied, setCodeCopied] = React.useState(false);
   const [depCopied, setDepCopied] = React.useState(false);
 
@@ -28,12 +34,6 @@ export default function IconDetailContent({ slug }: { slug: string }) {
   const IconComponent = iconData?.icon as React.ForwardRefExoticComponent<
     AnimatedIconProps & React.RefAttributes<AnimatedIconHandle>
   >;
-
-  React.useEffect(() => {
-    if (slug) {
-      getIconsContent(slug).then(setIconCode).catch(console.error);
-    }
-  }, [slug]);
 
   const copyCode = async () => {
     await navigator.clipboard.writeText(iconCode);

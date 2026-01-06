@@ -7,7 +7,7 @@ const ArrowBigDownIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
     const [scope, animate] = useAnimate();
 
     const start = async () => {
-      animate(scope.current, { y: [0, 4, 0] }, { duration: 0.5 });
+      animate(scope.current, { y: [0, 4] }, { duration: 0.5 });
     };
 
     const stop = async () => {
