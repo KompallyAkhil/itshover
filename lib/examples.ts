@@ -1,4 +1,6 @@
 import XSidebar from "@/components/examples/x-sidebar";
+import AnimatedNavbar from "@/components/examples/animated-navbar";
+import CollapsibleSidebar from "@/components/examples/collapsible-sidebar"
 import fs from "fs";
 import path from "path";
 
@@ -14,6 +16,26 @@ const EXAMPLE_REGISTRY = [
     description:
       "An animated sidebar navigation component inspired by X (formerly Twitter). Features smooth hover effects and individual icon animations.",
     tags: ["Sidebar", "Navigation", "Animation", "Framer Motion"],
+  },
+  {
+    componentName: "Animated Navbar",
+    slug: "animated-navbar",
+    createdBy: "https://github.com/KompallyAkhil",
+    filePath: "components/examples/animated-navbar.tsx",
+    component: AnimatedNavbar,
+    description:
+      "A responsive top navigation bar with a sliding active indicator and hover-triggered icon animations. Collapses to icons on mobile.",
+    tags: ["Navbar", "Navigation", "Responsive", "Framer Motion", "Micro-interactions"],
+  },
+  {
+    componentName: "Collapsible Sidebar",
+    slug: "collapsible-sidebar",
+    createdBy: "https://github.com/KompallyAkhil",
+    filePath: "components/examples/collapsible-sidebar.tsx",
+    component: CollapsibleSidebar,
+    description:
+      "A dashboard sidebar that expands and collapses with a smooth transition. Features icon-only mode with tooltips and animated toggle button.",
+    tags: ["Sidebar", "Collapsible", "Dashboard", "Framer Motion", "Tooltip"],
   },
 ];
 
